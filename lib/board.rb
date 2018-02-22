@@ -42,14 +42,23 @@ class Board
     puts "  +---+---+---+\n\n"
   end
 
-  def play_slot(slot, symbol)
-    index = @board_map[slot[0].to_sym] + slot[1].to_i - 1
-    if(@board_slots[index] > 0)
-      false
-    else
-      @board_slots[index] = symbol == 'X' ? 1 : 2
-      true
+  def fill_in_slot(slot, symbol)
+
+    # handle invalid input
+    if slot.match(/^([abc]{1})([123]{1})$/) == nil
+      raise InvalidSlot.new
     end
+
+    if(!slot_taken)
+      @board_slots[index] = symbol == 'X' ? 1 : 2
+    else
+      raise SlotTakenError.new
+    end
+  end
+
+  def slot_taken?(slot)
+    index = @board_map[slot[0].to_sym] + slot[1].to_i - 1
+    return @board_slots[index] > 0
   end
 
   def check_win

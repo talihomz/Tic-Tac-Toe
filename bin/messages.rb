@@ -1,3 +1,5 @@
+require "../lib/game_errors"
+
 class Messages
 
   @@menu_header = %{
@@ -43,9 +45,34 @@ Instructions:
     puts "Input '#{input}' is invalid!"
   end
 
+  def self.display_error e
+    puts "Error! => #{e.message}"
+  end
+
   def self.get_player_name(symbol)
     print "Player #{symbol}, please choose your name: "
     player_name = gets.chomp
+  end
+
+  def self.get_player_move(player)
+
+    # 1. Prompt player for Input
+    print "#{player}'s turn: "
+    player_input = gets.chomp
+    player_input = player_input.downcase
+
+    # quit
+    if player_input == "q"
+      puts "Are you sure you want to quit? (y/n)"
+      response = gets.chomp
+      raise ExitError.new if response.downcase == 'y'
+    end
+
+    player_input
+  end
+
+  def self.show_winner player
+    puts "Congratulations #{player}, you've won the game!"
   end
 
 end

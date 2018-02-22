@@ -11,25 +11,39 @@ class Game
   # initialize this
   def initialize
     @players = Hash.new
-    @players_set = false
-    @stop_game = false
     @board = Board.new
+  end
+
+  def prepare_game
+    reset
+    @players_set = true
+  end
+
+  def reset
+    @current_player = 'O'
+    @turn = 0
+    @players_set = false
+    @board.reset
   end
 
   def players_set?
     @players_set
   end
 
-  def stop
-    puts "It was nice having you, bye!"
-  end
-
   def game_over?
-    @quit
+    @board.check_win || @turn == 9
   end
 
-  def prompt_user
-    input = gets.chomp
+  def is_stopped?
+    @stop_game
+  end
+
+  def check_draw
+
+  end
+
+  def current_player
+    @players[@current_player.to_sym].name
   end
 
   def add_player(symbol, name)
@@ -37,61 +51,19 @@ class Game
     @players[player.marker.to_sym] = player
   end
 
-  def exit_game
-    @stop_game = true
-    @players_set = false
-    @board.reset
-    Messages.show_welcome
+  def player_has_won?
+    @board.check_win
   end
 
-  def play_game
+  def switch_active_player
+    @current_player = @current_player == 'O' ? 'X' : 'O'
+  end
 
-    @turn = 0
-    @stop_game = false
+  def play_move(move)
+    @board.fill_in_slot(move, @current_player)
+    @board.display
 
-    until @stop_game
-
-      # 1. Prompt player for Input
-      print "#{@players[@current_player.to_sym].name}'s turn: "
-      player_input = gets.chomp
-
-      if(player_input == '2')
-
-        puts "Are you sure you want to quit? (y/n)"
-        response = gets.chomp
-        @stop_game = true if response.downcase == 'y'
-
-      elsif player_input.downcase.match(/^([abc]{1})([123]{1})$/) == nil
-        # handle invalid input
-        puts 'Hey, this is not chess!! Please enter a valid slot'
-      else
-
-        if(@board.play_slot(player_input, @current_player))
-
-          # display the board
-          @board.display
-
-          # increase turn count
-          @turn += 1
-
-          # check for winning state
-          if(@board.check_win)
-            puts "#{@players[@current_player.to_sym].name} has won the game!"
-            @stop_game = true
-          else
-            # check if we should exit the game
-            @stop_game = true if @turn == 9
-
-            # switch current player
-            @current_player = @current_player == 'O' ? 'X' : 'O'
-          end
-        else
-          puts "That slot is already occupied! Try another slot"
-        end
-      end
-    end
-
-    exit_game
+    @turn += 1
   end
 
   # defining scope
