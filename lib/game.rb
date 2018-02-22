@@ -1,5 +1,5 @@
-require './menu.rb'
-require './board.rb'
+require '../bin/messages.rb' # remove all references to messages.rb
+require_relative 'board.rb'
 require 'pp'
 
 class Game
@@ -16,43 +16,8 @@ class Game
     @board = Board.new
   end
 
-  # enter the game menu
-  def start
-    Menu.show_welcome
-
-    # game loop
-    until game_over?
-      input = gets.chomp
-
-      # player can only start the game if no players are set
-      if(input == '1' && !@players_set)
-
-        # add players
-        add_player('X')
-        add_player('O')
-
-        Menu.show_game(self)
-
-        @board.display
-        @players_set = true
-        # player 0 always starts first
-        @current_player = 'O'
-        # start the new round of tic-tac-toe
-        play_game
-
-      elsif(input == '2')
-        puts "Are you sure you want to quit? (y/n)"
-        response = gets.chomp
-
-        if response.downcase == 'y'
-          @quit = true
-          stop
-        end
-      else
-        puts "Input '#{input}' is invalid!"
-      end
-    end
-
+  def players_set?
+    @players_set
   end
 
   def stop
@@ -67,10 +32,8 @@ class Game
     input = gets.chomp
   end
 
-  def add_player(symbol)
-    print "Player #{symbol}, please choose your name: "
-    player_name = gets.chomp
-    player = Player.new(player_name, symbol)
+  def add_player(symbol, name)
+    player = Player.new(name, symbol)
     @players[player.marker.to_sym] = player
   end
 
@@ -78,7 +41,7 @@ class Game
     @stop_game = true
     @players_set = false
     @board.reset
-    Menu.show_welcome
+    Messages.show_welcome
   end
 
   def play_game

@@ -1,0 +1,95 @@
+
+ORIGINAL GAME DESIGN
+--------------------------------------------------------------------------------
+
+Objects:
+- Board (:draw, :initialize, :mark_slot)
+- Slots (:value, :identifier)
+- Player (:name, :marker)
+- Game (:initialize, :start, :stop, :game_over?, :won?, @turn, :prompt)
+- Menu (:introduction)
+
+Steps:
+1. Add 2 players to the Game
+2. Create a Board
+3. Create all Slots
+4. Start game loop (asking player for input)
+- what are the inputs for a player?
+  a. identity a slot
+  b. enter an 'x' or 'o'
+
+5. After each iteration, display the board
+6. If a player has won, stop the game and declare winner
+- winning = check if all slots are aligned (vertically, horizontally or diagonally)
+
+Rules:
+1. Each turn has only one player
+2. A slot can only have one value ('x' or 'o')
+3. A player can only enter a value to a blank slot
+4. If there cannot be a possible winning combination, end game as draw
+
+REVIEWER NOTES
+--------------------------------------------------------------------------------
+
+*General description of current structure:*
+
+1. game.rb plays 2 roles: interacting with user and structuring the game ---> this is against "Single-responsibility" rule and a bit against "Interface segregation principle" rule
+2. menu.rb saves messages for users (but not all of them) ---> it would be nice to have all messages in one class
+3. board.rb encapsulates everything what is connected with board ---> awesome!
+
+*General comment:*
+
+Imagine that you would like to use your code in web application.
+Somebody even built an interface for you: nice colorful board, animations, score table etc.
+The only one thing you need to do is to connect it to your code...
+
+Can you see how much of the code needs to be re-built? Wouldn't it be better if inside game.rb we store only game actions? Not messed up with communication with the user?
+
+So, in you web app you can just use methods like `save_move`, `check_status`, `check_winner` etc?
+
+*Reading:*
+
+Please google SOLID rules and try to understand them.
+
+*Suggested structure*
+
+As I mentiond before, let's divide project to 2 directories: `lib` and `bin`.
+
+`lib` will be responsible for guts of the tic tac toe and should be re-useable.
+`bin` should contain exectuable file
+
+
+`lib`
+
+board.rb --->
+
+stores information about board only
+NO USAGE of `puts` nor `print` !!!
+
+methods (just examples, feel free to create more methods if needed)::
+#slot_taken?
+#slot_exists?
+#fill_in_slot(slot, symbol)
+#check_win [later we will refactor it to game.rb but let's tart with it]
+#check_draw [later we will refactor it to game.rb but let's tart with it]
+#display [later we will refactor it]
+
+
+game.rb ---->
+
+stores game rules, keeps track of the game
+NO USAGE of `puts` nor `print` !!!
+
+methods (just examples, feel free to create more methods if needed):
+#add_player
+#save_move
+#switch_active_player
+#check_status
+#exit_game
+
+
+`bin`
+
+
+start.rb ---> initialize Game class, icludes all the loops, prompts user for input and displays feedback info. Here you can use `puts` or `print`
+messages.rb ---> does what current menu.rb does
