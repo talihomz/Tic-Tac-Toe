@@ -8,7 +8,7 @@ game = Game.new
 option = "0"
 
 # show welcome screen to the user
-Menu.show_welcome
+Messages.show_welcome
 
 # start game loop
 until option == "2"
@@ -17,20 +17,18 @@ until option == "2"
   option = Messages.select_option
 
   # player can only start the game if no players are set
-  if(option == '1' && !game.players_set?)
+  if(option == '1')
+    # prepare (reset) the game
+    game.reset
 
     # add players
     game.add_player('X', Messages.get_player_name('X'))
     game.add_player('O', Messages.get_player_name('O'))
 
-    # prep the game
-    game.prepare_game
-
     # display game to user
     Messages.show_game(game)
 
-    # play the game
-    # stop when game is stopped
+    # play the game until the game is over
     until game.game_over?
 
       begin
@@ -42,15 +40,14 @@ until option == "2"
         # if you won, display
         if(game.player_has_won?)
           Messages.show_winner(game.current_player)
-          game.reset
         else
           game.switch_active_player
         end
 
-      rescue ArgumentError => e
+      rescue InvalidSlotError => e
         Messages.display_error e
         retry
-      rescue SlotTakenError =>
+      rescue SlotTakenError => e
         Messages.display_error e
         retry
       rescue ExitError => e

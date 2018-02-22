@@ -2,22 +2,25 @@ require "../lib/game_errors"
 
 class Messages
 
-  @@menu_header = %{
+  def self.show_welcome
+    puts %{
 ===========================================
    TIC TAC TOE : By Sava & Kevin
 ===========================================
 
 Welcome to Tic Tac Toe. Play if you dare 😈
-  }
+    }
+  end
 
-  def self.show_welcome
-   content = %{
-     1. Start game
-     2. Quit
-   }
+  def self.select_option
+    puts %{
+  1. Start game
+  2. Quit
+    }
 
-    puts "#{@@menu_header}#{content}"
     print 'Choose your destiny... '
+    input = gets.chomp
+    input
   end
 
   def self.show_game(game)
