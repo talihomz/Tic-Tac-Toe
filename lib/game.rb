@@ -14,38 +14,29 @@ class Game
     @board = Board.new
   end
 
-  def prepare_game
-    reset
-    @players_set = true
-  end
-
+  # resets the game
   def reset
     @current_player = 'O'
     @turn = 0
-    @players_set = false
     @board.reset
   end
 
-  def players_set?
-    @players_set
-  end
-
+  # check if game is over
   def game_over?
-    @board.check_win || @turn == 9
+    @board.check_win || is_draw?
   end
 
-  def is_stopped?
-    @stop_game
+  # check if the game is a draw
+  def is_draw?
+    @turn == 9
   end
 
-  def check_draw
-
-  end
-
+  # get current player
   def current_player
     @players[@current_player.to_sym].name
   end
 
+  # add player to the game
   def add_player(symbol, name)
     player = Player.new(name, symbol)
     @players[player.marker.to_sym] = player
@@ -55,6 +46,7 @@ class Game
     @board.check_win
   end
 
+  # switches player
   def switch_active_player
     @current_player = @current_player == 'O' ? 'X' : 'O'
   end
@@ -66,7 +58,4 @@ class Game
     @turn += 1
   end
 
-  # defining scope
-  public :start
-  private :game_over?, :stop
 end

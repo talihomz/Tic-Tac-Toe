@@ -93,3 +93,12 @@ methods (just examples, feel free to create more methods if needed):
 
 start.rb ---> initialize Game class, icludes all the loops, prompts user for input and displays feedback info. Here you can use `puts` or `print`
 messages.rb ---> does what current menu.rb does
+
+TODOS
+--------------------------------------------------------------------------------
+
+- fix quitting logic (no option)
+- add a goodbye message
+- color the winning row
+- display the board before game starts
+- add images (maybe?)

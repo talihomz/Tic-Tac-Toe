@@ -49,7 +49,8 @@ class Board
       raise InvalidSlot.new
     end
 
-    if(!slot_taken)
+    if(!slot_taken?(slot))
+      index = get_slot_index(slot)
       @board_slots[index] = symbol == 'X' ? 1 : 2
     else
       raise SlotTakenError.new
@@ -57,8 +58,12 @@ class Board
   end
 
   def slot_taken?(slot)
-    index = @board_map[slot[0].to_sym] + slot[1].to_i - 1
+    index = get_slot_index(slot)
     return @board_slots[index] > 0
+  end
+
+  def get_slot_index(slot)
+    index = @board_map[slot[0].to_sym] + slot[1].to_i - 1
   end
 
   def check_win

@@ -1,14 +1,14 @@
-class ExitError < Error
+class ExitError < StandardError
 
 end
 
-class InvalidSlot < Error
+class InvalidSlotError < StandardError
   def initialize
     super("The slot you entered is not valid")
   end
 end
 
-class SlotTakenError < Error
+class SlotTakenError < StandardError
   def initialize
     super("This slot is already taken")
   end
