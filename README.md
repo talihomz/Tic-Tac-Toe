@@ -15,19 +15,19 @@ You need to have Ruby installed in your machine. For more instructions on this, 
 
 ### Installing
 
-Install the 'pp' gem, for better logging of Ruby objects
+Run the `install.sh` script with proper permissions.
 
-`gem install pp`
+`$ ./install.sh`
 
 ## Running the game
 
-Run the index.rb file with this command:
+You can run the game by executing `ttt` from your command line interface
 
-`ruby index.rb`
+`$ ttt`
 
 ## Authors
 
-[**Sava Vuckovic**](https://github.com/savavuckovic) 
+[**Sava Vuckovic**](https://github.com/savavuckovic)
 
 [**Kevin Wahome**](https://github.com/talihomz)
 

@@ -97,5 +97,4 @@ messages.rb ---> does what current menu.rb does
 TODOS
 --------------------------------------------------------------------------------
 
-- color the winning row
 - https://www.commandercoriander.net/blog/2013/02/16/making-a-ruby-script-executable/

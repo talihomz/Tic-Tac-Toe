@@ -29,7 +29,6 @@ class Board
   end
 
   def render_slot(position)
-    # winning pos was 0,3,6
     value = @board_slots[position]
     render = ' '
 
@@ -38,11 +37,9 @@ class Board
       when 2 then render = 'O'
     end
 
-    puts "Winner: #{@winning_row}, Render: #{value}, Position: #{position}"
     if @winning_row != nil
       render = @winning_row.include?(position) ? render.green.bold : render.red
     end
-
 
     return render
   end
