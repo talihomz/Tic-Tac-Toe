@@ -98,5 +98,4 @@ TODOS
 --------------------------------------------------------------------------------
 
 - color the winning row
-- display the board before game starts
-- add images (maybe?)
+- https://www.commandercoriander.net/blog/2013/02/16/making-a-ruby-script-executable/

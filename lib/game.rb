@@ -4,7 +4,7 @@ require 'pp'
 class Game
 
   attr_reader :players
-
+  # create the player struct
   Player = Struct.new(:name, :marker)
 
   # initialize this
@@ -57,6 +57,7 @@ class Game
     @turn += 1
   end
 
+  # return the board
   def board
     @board
   end

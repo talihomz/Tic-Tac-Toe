@@ -1,4 +1,8 @@
+require_relative 'string_extension'
+
 class Board
+
+  attr_reader :board_slots
 
   def initialize
     @board_slots = [0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -17,17 +21,28 @@ class Board
       [0, 4, 8],
       [2, 4, 6]
     ]
+    @winning_row = []
   end
 
   def reset
     @board_slots = [0, 0, 0, 0, 0, 0, 0, 0, 0]
   end
 
-  def render_slot(value)
+  def render_slot(position)
+    value = @board_slots[position]
+    render = ' '
+
     case value
-      when 0 then ' '
-      when 1 then 'X'
-      when 2 then 'O'
+      when 1 then render = 'X'
+      when 2 then render = 'O'
+    end
+
+    if @winning_row.include?(position)
+      render = render.green.bold
+    elsif check_win
+      render = render.red
+    else
+      render
     end
   end
 
@@ -35,13 +50,13 @@ class Board
     return %{
         A   B   C
       +---+---+---+
-    1 | #{render_slot(@board_slots[0])} | #{render_slot(@board_slots[3])} | #{render_slot(@board_slots[6])} |
+    1 | #{render_slot(0)} | #{render_slot(3)} | #{render_slot(6)} |
       +---+---+---+
-    2 | #{render_slot(@board_slots[1])} | #{render_slot(@board_slots[4])} | #{render_slot(@board_slots[7])} |
+    2 | #{render_slot(1)} | #{render_slot(4)} | #{render_slot(7)} |
       +---+---+---+
-    3 | #{render_slot(@board_slots[2])} | #{render_slot(@board_slots[5])} | #{render_slot(@board_slots[8])} |
+    3 | #{render_slot(2)} | #{render_slot(5)} | #{render_slot(8)} |
       +---+---+---+
-      
+
 }
   end
 
@@ -71,7 +86,14 @@ class Board
 
   def check_win
     return @possible_wins.any? do |row|
-      @board_slots[row[0]] == @board_slots[row[1]] && @board_slots[row[0]] == @board_slots[row[2]] && @board_slots[row[0]] != 0
+      result = @board_slots[row[0]] == @board_slots[row[1]] && @board_slots[row[0]] == @board_slots[row[2]] && @board_slots[row[0]] != 0
+      if result
+        @winning_row = row
+        puts @winning_row
+        true
+      else
+        false
+      end
     end
   end
 
