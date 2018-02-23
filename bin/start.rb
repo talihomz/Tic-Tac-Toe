@@ -60,7 +60,12 @@ until option == "2"
 
   elsif(option == '2')
     user_wants_to_quit = Messages.confirm_exit
-    option == "0" unless user_wants_to_quit
+    if user_wants_to_quit
+      Messages.say_goodbye
+      break
+    else
+      option = "0"
+    end
   else
     Messages.show_invalid_input(input)
   end

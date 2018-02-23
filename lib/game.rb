@@ -52,9 +52,13 @@ class Game
 
   def play_move(move)
     @board.fill_in_slot(move, @current_player)
-    @board.display
+    puts @board
 
     @turn += 1
+  end
+
+  def board
+    @board
   end
 
 end

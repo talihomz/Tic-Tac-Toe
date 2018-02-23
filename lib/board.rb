@@ -31,15 +31,18 @@ class Board
     end
   end
 
-  def display
-    puts "\n    A   B   C  "
-    puts "  +---+---+---+"
-    puts "1 | #{render_slot(@board_slots[0])} | #{render_slot(@board_slots[3])} | #{render_slot(@board_slots[6])} |"
-    puts "  +---+---+---+"
-    puts "2 | #{render_slot(@board_slots[1])} | #{render_slot(@board_slots[4])} | #{render_slot(@board_slots[7])} |"
-    puts "  +---+---+---+"
-    puts "3 | #{render_slot(@board_slots[2])} | #{render_slot(@board_slots[5])} | #{render_slot(@board_slots[8])} |"
-    puts "  +---+---+---+\n\n"
+  def to_s
+    return %{
+        A   B   C
+      +---+---+---+
+    1 | #{render_slot(@board_slots[0])} | #{render_slot(@board_slots[3])} | #{render_slot(@board_slots[6])} |
+      +---+---+---+
+    2 | #{render_slot(@board_slots[1])} | #{render_slot(@board_slots[4])} | #{render_slot(@board_slots[7])} |
+      +---+---+---+
+    3 | #{render_slot(@board_slots[2])} | #{render_slot(@board_slots[5])} | #{render_slot(@board_slots[8])} |
+      +---+---+---+
+      
+}
   end
 
   def fill_in_slot(slot, symbol)

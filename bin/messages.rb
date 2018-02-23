@@ -24,25 +24,38 @@ Welcome to Tic Tac Toe. Play if you dare 😈
   end
 
   def self.show_game(game)
-    message = "\n\n#{game.players[:X].name} vs #{game.players[:O].name}"
-    instructions = %{
+
+    puts %{
+#{game.players[:X].name} vs #{game.players[:O].name}
 ===========================================
+
+#{game.board}
 
 Instructions:
 1. Each player gets a turn at the game
-  - The prompt will show who's turn it is (e.g. Kevin's Turn: )
+  - The prompt will show who's turn it is (e.g. #{game.players[:X].name}'s Turn: )
 2. Enter the position you wish to mark (e.g A2)
 3. Press 'q' to quit the game any time.
 
 }
-
-    puts "#{message}#{instructions}"
   end
 
   def self.confirm_exit
-    print "Are you sure you want to quit? (y/n)"
+    print "Are you sure you want to quit? (y/n or your language 😉)"
     input = gets.chomp
-    input.downcase == 'y'
+    input = input.downcase
+    ["y", "yes", "ja", "yaaas", "ndio", "da", "oui"].include? input
+  end
+
+  def self.say_goodbye
+    puts %{
+            ,-.           . .           . .
+           /              | |           | |
+           | -. ,-. ,-. ,-| |-. . . ,-. | |
+           \  | | | | | | | | | | | |-'
+            `-' `-' `-' `-' `-' `-| `-' o o
+                                `-'
+}
   end
 
   def show_invalid_input(input)

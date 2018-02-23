@@ -97,8 +97,6 @@ messages.rb ---> does what current menu.rb does
 TODOS
 --------------------------------------------------------------------------------
 
-- fix quitting logic (no option)
-- add a goodbye message
 - color the winning row
 - display the board before game starts
 - add images (maybe?)
