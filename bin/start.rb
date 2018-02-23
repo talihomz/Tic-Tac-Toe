@@ -67,6 +67,6 @@ until option == "2"
       option = "0"
     end
   else
-    Messages.show_invalid_input(input)
+    Messages.show_invalid_input(option)
   end
 end

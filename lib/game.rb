@@ -22,7 +22,7 @@ class Game
 
   # check if game is over
   def game_over?
-    @board.check_win || is_draw?
+    player_has_won? || is_draw?
   end
 
   # check if the game is a draw
@@ -42,7 +42,7 @@ class Game
   end
 
   def player_has_won?
-    @board.check_win
+    @board.winning_row != nil
   end
 
   # switches player
@@ -52,6 +52,7 @@ class Game
 
   def play_move(move)
     @board.fill_in_slot(move, @current_player)
+    @board.check_win
     puts @board
 
     @turn += 1

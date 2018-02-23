@@ -58,7 +58,7 @@ Instructions:
 }
   end
 
-  def show_invalid_input(input)
+  def self.show_invalid_input(input)
     puts "Input '#{input}' is invalid!"
   end
 

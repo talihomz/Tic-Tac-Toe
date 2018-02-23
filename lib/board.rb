@@ -3,9 +3,9 @@ require_relative 'string_extension'
 class Board
 
   attr_reader :board_slots
+  attr_reader :winning_row
 
   def initialize
-    @board_slots = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     @board_map = {
       a: 0,
       b: 3,
@@ -21,14 +21,15 @@ class Board
       [0, 4, 8],
       [2, 4, 6]
     ]
-    @winning_row = []
   end
 
   def reset
     @board_slots = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    @winning_row = nil
   end
 
   def render_slot(position)
+    # winning pos was 0,3,6
     value = @board_slots[position]
     render = ' '
 
@@ -37,13 +38,13 @@ class Board
       when 2 then render = 'O'
     end
 
-    if @winning_row.include?(position)
-      render = render.green.bold
-    elsif check_win
-      render = render.red
-    else
-      render
+    puts "Winner: #{@winning_row}, Render: #{value}, Position: #{position}"
+    if @winning_row != nil
+      render = @winning_row.include?(position) ? render.green.bold : render.red
     end
+
+
+    return render
   end
 
   def to_s
@@ -85,15 +86,8 @@ class Board
   end
 
   def check_win
-    return @possible_wins.any? do |row|
-      result = @board_slots[row[0]] == @board_slots[row[1]] && @board_slots[row[0]] == @board_slots[row[2]] && @board_slots[row[0]] != 0
-      if result
-        @winning_row = row
-        puts @winning_row
-        true
-      else
-        false
-      end
+    @winning_row = @possible_wins.find do |row|
+      @board_slots[row[0]] == @board_slots[row[1]] && @board_slots[row[0]] == @board_slots[row[2]] && @board_slots[row[0]] != 0
     end
   end
 
