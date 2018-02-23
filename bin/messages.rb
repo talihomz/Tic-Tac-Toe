@@ -1,4 +1,4 @@
-require "../lib/game_errors"
+require_relative "../lib/game_errors"
 
 class Messages
 
@@ -32,7 +32,8 @@ Instructions:
 1. Each player gets a turn at the game
   - The prompt will show who's turn it is (e.g. Kevin's Turn: )
 2. Enter the position you wish to mark (e.g A2)
-3. Press '2' to quit the game any time.
+3. Press 'q' to quit the game any time.
+
 }
 
     puts "#{message}#{instructions}"
@@ -68,7 +69,11 @@ Instructions:
     if player_input == "q"
       puts "Are you sure you want to quit? (y/n)"
       response = gets.chomp
-      raise ExitError.new if response.downcase == 'y'
+      if response.downcase == 'y'
+        raise ExitError.new
+      else
+        return "n"
+      end
     end
 
     player_input

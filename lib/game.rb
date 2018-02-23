@@ -1,4 +1,3 @@
-require '../bin/messages.rb' # remove all references to messages.rb
 require_relative 'board.rb'
 require 'pp'
 

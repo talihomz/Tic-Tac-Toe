@@ -46,7 +46,7 @@ class Board
 
     # handle invalid input
     if slot.match(/^([abc]{1})([123]{1})$/) == nil
-      raise InvalidSlot.new
+      raise InvalidSlotError.new
     end
 
     if(!slot_taken?(slot))

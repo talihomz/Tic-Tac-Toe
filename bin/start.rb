@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require '../lib/game.rb'
+require_relative '../lib/game.rb'
 require_relative 'messages.rb'
 
 # setup
@@ -33,6 +33,9 @@ until option == "2"
 
       begin
         player_move = Messages.get_player_move(game.current_player)
+
+        # go next iteration if player chose "n" on the quit instruction
+        next if player_move == "n"
 
         # play the move
         game.play_move(player_move)
