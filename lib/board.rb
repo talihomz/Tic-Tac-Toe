@@ -2,7 +2,7 @@ require_relative 'string_extension'
 
 class Board
 
-  attr_reader :board_slots
+  attr_reader :slots
   attr_reader :winning_row
 
   def initialize
@@ -24,12 +24,12 @@ class Board
   end
 
   def reset
-    @board_slots = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    @slots = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     @winning_row = nil
   end
 
   def render_slot(position)
-    value = @board_slots[position]
+    value = @slots[position]
     render = ' '
 
     case value
@@ -67,7 +67,7 @@ class Board
 
     if(!slot_taken?(slot))
       index = get_slot_index(slot)
-      @board_slots[index] = symbol == 'X' ? 1 : 2
+      @slots[index] = symbol == 'X' ? 1 : 2
     else
       raise SlotTakenError.new
     end
@@ -75,7 +75,7 @@ class Board
 
   def slot_taken?(slot)
     index = get_slot_index(slot)
-    return @board_slots[index] > 0
+    return @slots[index] > 0
   end
 
   def get_slot_index(slot)
@@ -84,7 +84,7 @@ class Board
 
   def check_win
     @winning_row = @possible_wins.find do |row|
-      @board_slots[row[0]] == @board_slots[row[1]] && @board_slots[row[0]] == @board_slots[row[2]] && @board_slots[row[0]] != 0
+      @slots[row[0]] == @slots[row[1]] && @slots[row[0]] == @slots[row[2]] && @slots[row[0]] != 0
     end
   end
 

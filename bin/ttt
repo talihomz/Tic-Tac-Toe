@@ -43,6 +43,8 @@ until option == "2"
         # if you won, display
         if(game.player_has_won?)
           Messages.show_winner(game.current_player)
+        elsif game.is_draw?
+          Messages.show_draw
         else
           game.switch_active_player
         end

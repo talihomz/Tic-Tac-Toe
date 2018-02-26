@@ -96,4 +96,8 @@ Instructions:
     puts "Congratulations #{player}, you've won the game!"
   end
 
+  def self.show_draw
+    puts "Equally matched contenders have met!"
+  end
+
 end

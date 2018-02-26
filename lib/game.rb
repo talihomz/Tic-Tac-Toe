@@ -16,7 +16,7 @@ class Game
   # resets the game
   def reset
     @current_player = 'O'
-    @turn = 0
+    # @turn = 0
     @board.reset
   end
 
@@ -27,7 +27,9 @@ class Game
 
   # check if the game is a draw
   def is_draw?
-    @turn == 9
+    @board.slots.all? do |slot|
+      slot != 0
+    end
   end
 
   # get current player
@@ -55,7 +57,7 @@ class Game
     @board.check_win
     puts @board
 
-    @turn += 1
+    # @turn += 1
   end
 
   # return the board
