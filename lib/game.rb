@@ -4,6 +4,7 @@ require 'pp'
 class Game
 
   attr_reader :players
+  attr_reader :board
   # create the player struct
   Player = Struct.new(:name, :marker)
 
@@ -55,11 +56,6 @@ class Game
     @board.fill_in_slot(move, @current_player)
     @board.check_win
     Messages.display @board
-  end
-
-  # return the board
-  def board
-    @board
   end
 
 end
