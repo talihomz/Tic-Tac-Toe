@@ -44,7 +44,7 @@ class Game
   end
 
   def player_has_won?
-    @board.winning_row != nil
+    @board.winning_row
   end
 
   # switches player
