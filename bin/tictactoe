@@ -16,25 +16,20 @@ until option == "2"
   # prompt the user for option
   option = Messages.get_option_from_player
 
-  # player can only start the game if no players are set
+  # user decides to play by selecting option 1
   if(option == "1")
-    # prepare (reset) the game
     game.reset
-
-    # add players
     game.add_player("X", Messages.get_player_name("X"))
     game.add_player("O", Messages.get_player_name("O"))
 
     # display game to user
     Messages.show_game(game)
 
-    # play the game until the game is over
     until game.game_over?
 
       begin
         player_input = Messages.get_player_input(game.current_player)
 
-        # quit
         if player_input == "q"
           user_wants_to_exit = Messages.get_exit_confirmation
           if user_wants_to_exit
@@ -44,10 +39,8 @@ until option == "2"
           end
         end
 
-        # play the move
         game.play_move(player_input)
 
-        # if you won, display
         if(game.player_has_won?)
           Messages.show_winner(game.current_player)
         elsif game.is_draw?
@@ -65,6 +58,7 @@ until option == "2"
       end
     end
 
+  # user decides to quit by selecting option 2
   elsif(option == "2")
     user_wants_to_quit = Messages.get_exit_confirmation
     if user_wants_to_quit

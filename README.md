@@ -21,9 +21,9 @@ Run the `install.sh` script with proper permissions.
 
 ## Running the game
 
-You can run the game by executing `ttt` from your command line interface
+You can run the game by executing `tictactoe` from your command line interface
 
-`$ ttt`
+`$ tictactoe`
 
 ## Authors
 
