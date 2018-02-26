@@ -75,11 +75,11 @@ class Board
 
   def slot_taken?(slot)
     index = get_slot_index(slot)
-    return @slots[index] > 0
+    @slots[index] > 0
   end
 
   def get_slot_index(slot)
-    index = @board_map[slot[0].to_sym] + slot[1].to_i - 1
+    @board_map[slot[0].to_sym] + slot[1].to_i - 1
   end
 
   def check_win
