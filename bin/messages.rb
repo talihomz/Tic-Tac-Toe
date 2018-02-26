@@ -100,4 +100,8 @@ Instructions:
     puts "Equally matched contenders have met!"
   end
 
+  def self.display message
+    puts message
+  end
+
 end

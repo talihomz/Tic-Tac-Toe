@@ -16,7 +16,6 @@ class Game
   # resets the game
   def reset
     @current_player = 'O'
-    # @turn = 0
     @board.reset
   end
 
@@ -55,9 +54,7 @@ class Game
   def play_move(move)
     @board.fill_in_slot(move, @current_player)
     @board.check_win
-    puts @board
-
-    # @turn += 1
+    Messages.display @board
   end
 
   # return the board
