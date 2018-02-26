@@ -71,25 +71,12 @@ Instructions:
     player_name = gets.chomp
   end
 
-  def self.get_player_move(player)
+  def self.get_player_input(player)
 
     # 1. Prompt player for Input
     print "#{player}'s turn: "
-    player_input = gets.chomp
-    player_input = player_input.downcase
-
-    # quit
-    if player_input == "q"
-      puts "Are you sure you want to quit? (y/n)"
-      response = gets.chomp
-      if response.downcase == 'y'
-        raise ExitError.new
-      else
-        return "n"
-      end
-    end
-
-    player_input
+    input = gets.chomp
+    input.downcase
   end
 
   def self.show_winner player

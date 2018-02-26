@@ -1,7 +1,3 @@
-class ExitError < StandardError
-
-end
-
 class InvalidSlotError < StandardError
   def initialize
     super("The slot you entered is not valid")

@@ -32,13 +32,20 @@ until option == "2"
     until game.game_over?
 
       begin
-        player_move = Messages.get_player_move(game.current_player)
+        player_input = Messages.get_player_input(game.current_player)
 
-        # go next iteration if player chose "n" on the quit instruction
-        next if player_move == "n"
+        # quit
+        if player_input == "q"
+          user_wants_to_exit = Messages.confirm_exit
+          if user_wants_to_exit
+            break
+          else
+            next
+          end
+        end
 
         # play the move
-        game.play_move(player_move)
+        game.play_move(player_input)
 
         # if you won, display
         if(game.player_has_won?)
@@ -55,8 +62,6 @@ until option == "2"
       rescue SlotTakenError => e
         Messages.display_error e
         retry
-      rescue ExitError => e
-        break
       end
     end
 
