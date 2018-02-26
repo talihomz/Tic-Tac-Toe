@@ -1,5 +1,5 @@
-require_relative 'board.rb'
-require 'pp'
+require_relative "board.rb"
+require "pp"
 
 class Game
 
@@ -16,7 +16,7 @@ class Game
 
   # resets the game
   def reset
-    @current_player = 'O'
+    @current_player = "O"
     @board.reset
   end
 
@@ -49,13 +49,13 @@ class Game
 
   # switches player
   def switch_active_player
-    @current_player = @current_player == 'O' ? 'X' : 'O'
+    @current_player = @current_player == "O" ? "X" : "O"
   end
 
   def play_move(move)
     @board.fill_in_slot(move, @current_player)
     @board.check_win
-    Messages.display @board
+    Messages.show @board
   end
 
 end

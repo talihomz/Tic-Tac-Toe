@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/game.rb'
-require_relative 'messages.rb'
+require_relative "../lib/game.rb"
+require_relative "messages.rb"
 
 # setup
 game = Game.new
@@ -14,16 +14,16 @@ Messages.show_welcome
 until option == "2"
 
   # prompt the user for option
-  option = Messages.select_option
+  option = Messages.get_option_from_player
 
   # player can only start the game if no players are set
-  if(option == '1')
+  if(option == "1")
     # prepare (reset) the game
     game.reset
 
     # add players
-    game.add_player('X', Messages.get_player_name('X'))
-    game.add_player('O', Messages.get_player_name('O'))
+    game.add_player("X", Messages.get_player_name("X"))
+    game.add_player("O", Messages.get_player_name("O"))
 
     # display game to user
     Messages.show_game(game)
@@ -36,7 +36,7 @@ until option == "2"
 
         # quit
         if player_input == "q"
-          user_wants_to_exit = Messages.confirm_exit
+          user_wants_to_exit = Messages.get_exit_confirmation
           if user_wants_to_exit
             break
           else
@@ -57,18 +57,18 @@ until option == "2"
         end
 
       rescue InvalidSlotError => e
-        Messages.display_error e
+        Messages.show e
         retry
       rescue SlotTakenError => e
-        Messages.display_error e
+        Messages.show e
         retry
       end
     end
 
-  elsif(option == '2')
-    user_wants_to_quit = Messages.confirm_exit
+  elsif(option == "2")
+    user_wants_to_quit = Messages.get_exit_confirmation
     if user_wants_to_quit
-      Messages.say_goodbye
+      Messages.show_goodbye
       break
     else
       option = "0"

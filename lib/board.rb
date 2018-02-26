@@ -1,4 +1,4 @@
-require_relative 'string_extension'
+require_relative "string_extension"
 
 class Board
 
@@ -33,8 +33,8 @@ class Board
     render = ' '
 
     case value
-      when 1 then render = 'X'
-      when 2 then render = 'O'
+    when 1 then render = "X"
+    when 2 then render = "O"
     end
 
     if @winning_row != nil
@@ -67,7 +67,7 @@ class Board
 
     if(!slot_taken?(slot))
       index = get_slot_index(slot)
-      @slots[index] = symbol == 'X' ? 1 : 2
+      @slots[index] = symbol == "X" ? 1 : 2
     else
       raise SlotTakenError.new
     end

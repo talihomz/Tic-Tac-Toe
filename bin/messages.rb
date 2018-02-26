@@ -12,13 +12,13 @@ Welcome to Tic Tac Toe. Play if you dare 😈
     }
   end
 
-  def self.select_option
+  def self.get_option_from_player
     puts %{
   1. Start game
   2. Quit
     }
 
-    print 'Choose your destiny... '
+    print "Choose your destiny... "
     input = gets.chomp
     input
   end
@@ -40,14 +40,14 @@ Instructions:
 }
   end
 
-  def self.confirm_exit
+  def self.get_exit_confirmation
     print "Are you sure you want to quit? (y/n or your language 😉)"
     input = gets.chomp
     input = input.downcase
     ["y", "yes", "ja", "yaaas", "ndio", "da", "oui"].include? input
   end
 
-  def self.say_goodbye
+  def self.show_goodbye
     puts %{
             ,-.           . .           . .
            /              | |           | |
@@ -62,7 +62,7 @@ Instructions:
     puts "Input '#{input}' is invalid!"
   end
 
-  def self.display_error e
+  def self.show_error e
     puts "Error! => #{e.message}"
   end
 
@@ -72,8 +72,6 @@ Instructions:
   end
 
   def self.get_player_input(player)
-
-    # 1. Prompt player for Input
     print "#{player}'s turn: "
     input = gets.chomp
     input.downcase
@@ -87,7 +85,7 @@ Instructions:
     puts "Equally matched contenders have met!"
   end
 
-  def self.display message
+  def self.show message
     puts message
   end
 
