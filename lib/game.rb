@@ -8,9 +8,9 @@ class Game
 
   Player = Struct.new(:name, :marker)
 
-  def initialize
-    @players = Hash.new
-    @board = Board.new
+  def initialize(players, board)
+    @players = players
+    @board = board
   end
 
   def reset
