@@ -8,7 +8,7 @@ class Game
 
   Player = Struct.new(:name, :marker)
 
-  def initialize(players, board)
+  def initialize(board, players={})
     @players = players
     @board = board
   end
@@ -22,12 +22,11 @@ class Game
     player_has_won? || is_draw?
   end
 
-  # game is a draw if all slots are played (not 0)
   def is_draw?
+    # game is a draw if all slots are played (not 0)
     @board.slots.all? do |slot| slot != 0 end
   end
 
-  # get current player
   def current_player
     @players[@current_player.to_sym].name
   end
@@ -49,7 +48,5 @@ class Game
   def play_move(move)
     @board.fill_in_slot(move, @current_player)
     @board.check_win
-    Messages.show @board
   end
-
 end

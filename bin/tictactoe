@@ -4,7 +4,8 @@ require_relative "../lib/game.rb"
 require_relative "messages.rb"
 
 # setup
-game = Game.new
+board = Board.new
+game = Game.new board
 option = "0"
 
 # show welcome screen to the user
@@ -40,6 +41,7 @@ until option == "2"
         end
 
         game.play_move(player_input)
+        Messages.show board
 
         if(game.player_has_won?)
           Messages.show_winner(game.current_player)

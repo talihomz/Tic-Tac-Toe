@@ -4,9 +4,8 @@ require 'board'
 describe Game do
 
     before do 
-        @players = {}
         @board = Board.new
-        @game = Game.new(@players, @board)
+        @game = Game.new(@board)
     end
 
     describe "#game_over?" do
@@ -129,6 +128,45 @@ describe Game do
             2.times { @game.switch_active_player }
 
             expect(@game.current_player).to eq("Sava")
+        end
+    end
+
+    describe "#play_move" do
+        before do
+            @game.add_player("X", "Kevin")
+            @game.add_player("O", "Sava")
+            @game.reset
+        end
+
+        it "checks for a win on the board" do
+            expect(@board).to receive(:check_win)
+            valid_move = "a1"
+
+            # act
+            @game.play_move(valid_move)
+        end
+
+        context "given current_player is 'O'" do
+            it "invokes board.fill_in_slot with correct arguments" do
+                valid_move = "a1"
+                current_player = "O"
+                expect(@board).to receive(:fill_in_slot).with(valid_move, current_player)
+    
+                # act
+                @game.play_move(valid_move)
+            end
+        end   
+        
+        context "given current_player is 'X'" do
+            it "invokes board.fill_in_slot with correct arguments" do
+                valid_move = "a1"
+                current_player = "X"
+                expect(@board).to receive(:fill_in_slot).with(valid_move, current_player)
+    
+                # act
+                @game.switch_active_player
+                @game.play_move(valid_move)
+            end
         end
     end
 
