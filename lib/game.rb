@@ -38,7 +38,7 @@ class Game
   end
 
   def player_has_won?
-    @board.winning_row
+    @board.winning_row ? true : false
   end
 
   def switch_active_player
