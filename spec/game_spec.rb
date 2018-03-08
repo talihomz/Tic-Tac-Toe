@@ -74,8 +74,8 @@ describe Game do
                 @game.add_player(symbol, name)
 
                 expect(@game.players.keys.include?(symbol.to_sym)).to eq(true)
-                expect(@game.players[symbol.to_sym].marker).to eq(symbol)
-                expect(@game.players[symbol.to_sym].name).to eq(name)
+                expect(@game.players[symbol.to_sym]).to have_attributes(marker: symbol)
+                expect(@game.players[symbol.to_sym]).to have_attributes(name: name)
             end
         end
 
@@ -87,6 +87,48 @@ describe Game do
   
                 expect { @game.add_player(symbol, name) }.to raise_error(expected_msg, ArgumentError)
             end
+        end
+    end
+
+    describe "#reset" do
+        before do
+            @game.add_player("X", "Kevin")
+            @game.add_player("O", "Sava")
+        end
+
+        it "calls board.reset" do
+            expect(@board).to receive(:reset)
+
+            # act
+            @game.reset
+        end
+
+        it "sets current player to 'O'" do
+            
+            @game.reset
+
+            # assert
+            expect(@game.current_player).to eq("Sava")
+        end
+    end
+
+    describe "#switch_active_player" do
+        before do
+            @game.add_player("X", "Kevin")
+            @game.add_player("O", "Sava")
+            @game.reset
+        end
+
+        it "returns Kevin on 1 switch" do
+            @game.switch_active_player
+
+            expect(@game.current_player).to eq("Kevin")
+        end
+
+        it "returns Sava on 2 switches" do
+            2.times { @game.switch_active_player }
+
+            expect(@game.current_player).to eq("Sava")
         end
     end
 
