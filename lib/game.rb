@@ -33,6 +33,7 @@ class Game
   end
 
   def add_player(symbol, name)
+    raise ArgumentError.new("invalid symbol, expected 'X' or 'O'") if symbol.match(/[^XO]/i)
     player = Player.new(name, symbol)
     @players[player.marker.to_sym] = player
   end
