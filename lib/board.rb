@@ -86,6 +86,7 @@ class Board
     @winning_row = @possible_wins.find do |row|
       @slots[row[0]] == @slots[row[1]] && @slots[row[0]] == @slots[row[2]] && @slots[row[0]] != 0
     end
+    @winning_row ? true : false
   end
 
 end
