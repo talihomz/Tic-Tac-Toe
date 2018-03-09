@@ -42,19 +42,23 @@ describe Board do
 
   describe "#fill_in_slot" do
     shared_examples "invalid_slot" do |slot|
-      it "Input '#{slot}' raises an error" do
+      it "Input '#{slot}' raises an InvalidSlotError" do
         expect { subject.fill_in_slot(slot, 'X') }.to raise_error(InvalidSlotError)
       end
     end
 
-    context "given invalid slot" do
+    context "given a collection of invalid inputs" do
       ['a4', 'aa', '11', 'aa11', '', 'a11', '1a', '&3', 'd1'].each do |slot|
         include_examples "invalid_slot", slot
       end
+    end
 
-      # it "raises InvalidSlotError" do
-      #
-      # end
+    context "given a taken slot as input" do
+      it "raises a SlotTakenError" do
+        allow(subject).to receive(:slot_taken?).and_return( true )
+
+        expect { subject.fill_in_slot('a1', 'X') }.to raise_error(SlotTakenError)
+      end
     end
   end
 end
