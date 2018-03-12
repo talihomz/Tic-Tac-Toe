@@ -7,7 +7,7 @@ describe Game do
     let(:game) { Game.new(board) }
 
     describe "#game_over?" do
-        context "given board.winning_row != nil" do
+        context "when the board has no winning row" do
             it "#game_over? returns true" do
                 allow(board).to receive(:winning_row).and_return( true )
 
@@ -15,7 +15,7 @@ describe Game do
             end
         end
 
-        context "given none of the slots == 0" do
+        context "when none of the slots are empty" do
             
             before do
                 allow(board).to receive(:slots).and_return( Array.new(9) { 1 } )
@@ -32,14 +32,14 @@ describe Game do
     end
     
     describe "#player_has_won?" do 
-        context "given a winning row" do
+        context "when there is a winning row" do
             it "returns true" do
                 allow(board).to receive(:winning_row).and_return([0, 3, 6])
                 expect(game.player_has_won?).to eq(true)
             end
         end
 
-        context "given no winning row" do
+        context "when there is no winning row" do
             it "returns false" do
                 expect(game.player_has_won?).to eq(false)
             end
@@ -47,14 +47,14 @@ describe Game do
     end
 
     describe "#is_draw?" do 
-        context "given a board that is full" do
+        context "when board is full" do
             it "returns true" do
                 allow(board).to receive(:slots).and_return(Array.new(9) { 1 })
                 expect(game.is_draw?).to eq(true)
             end
         end
 
-        context "given a board that is not full" do
+        context "when board is not full" do
             it "returns false" do
                 allow(board).to receive(:slots).and_return(Array.new(9) { 0 })
                 expect(game.is_draw?).to eq(false)
@@ -63,7 +63,7 @@ describe Game do
     end
 
     describe "#add_player" do
-        context "given a name and a valid symbol" do
+        context "when name and a valid symbol" do
             it "players contains a player added" do   
                 symbol = 'X'
                 name = 'Kevin'
@@ -76,7 +76,7 @@ describe Game do
             end
         end
 
-        context "given an invalid symbol" do
+        context "when symbol invalid" do
             it "raises and ArgumentError" do 
                 symbol = 'T'
                 name = 'Kevin'
@@ -141,7 +141,7 @@ describe Game do
             game.play_move(valid_move)
         end
 
-        context "given current_player is 'O'" do
+        context "when current_player is 'O'" do
             it "invokes board.fill_in_slot with correct arguments" do
                 valid_move = "a1"
                 current_player = "O"
@@ -151,7 +151,7 @@ describe Game do
             end
         end   
         
-        context "given current_player is 'X'" do
+        context "when current_player is 'X'" do
             it "invokes board.fill_in_slot with correct arguments" do
                 valid_move = "a1"
                 current_player = "X"
