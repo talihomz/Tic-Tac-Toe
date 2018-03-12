@@ -117,13 +117,13 @@ describe Game do
             game.reset
         end
 
-        it "returns Kevin on 1 switch" do
+        it "returns Player X name on 1 switch" do
             game.switch_active_player
 
             expect(game.current_player).to eq("Kevin")
         end
 
-        it "returns Sava on 2 switches" do
+        it "returns Player O name on 2 switches" do
             2.times { game.switch_active_player }
 
             expect(game.current_player).to eq("Sava")
