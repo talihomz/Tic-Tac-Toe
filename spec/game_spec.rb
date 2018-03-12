@@ -7,26 +7,29 @@ describe Game do
     let(:game) { Game.new(board) }
 
     describe "#game_over?" do
-        context "when the board has no winning row" do
-            it "#game_over? returns true" do
+
+        context "when someone has won" do 
+            it "returns true" do
                 allow(board).to receive(:winning_row).and_return( true )
 
                 expect(game.game_over?).to eq(true)
             end
         end
 
-        context "when none of the slots are empty" do
-            
-            before do
-                allow(board).to receive(:slots).and_return( Array.new(9) { 1 } )
-            end
+        context "when there is a draw" do 
+            it "returns true" do   
+                allow(game).to receive(:is_draw?).and_return( true )
 
-            it "#is_draw? returns true" do   
-                expect(game.is_draw?).to eq(true)
-            end
-
-            it "#game_over? returns true" do
                 expect(game.game_over?).to eq(true)
+            end
+        end
+
+        context "when there is no win nor a draw" do 
+            it "returns false" do   
+                allow(game).to receive(:is_draw?).and_return( false )
+                allow(board).to receive(:winning_row).and_return( false )
+
+                expect(game.game_over?).to eq(false)
             end
         end
     end
