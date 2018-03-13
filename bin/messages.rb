@@ -1,30 +1,28 @@
-require_relative "../lib/game_errors"
+require_relative '../lib/game_errors'
 
 class Messages
-
   def self.show_welcome
-    puts %{
+    puts %(
 ===========================================
    TIC TAC TOE : By Sava & Kevin
 ===========================================
 
 Welcome to Tic Tac Toe. Play if you dare 😈
-    }
+    )
   end
 
   def self.get_option_from_player
-    puts %{
+    puts %(
   1. Start game
   2. Quit
-    }
+    )
 
-    print "Choose your destiny... "
+    print 'Choose your destiny... '
     input = gets.chomp
     input
   end
 
   def self.show_game(game)
-
     puts %{
 #{game.players[:X].name} vs #{game.players[:O].name}
 ===========================================
@@ -41,28 +39,28 @@ Instructions:
   end
 
   def self.get_exit_confirmation
-    print "Are you sure you want to quit? (y/n or your language 😉)"
+    print 'Are you sure you want to quit? (y/n or your language 😉)'
     input = gets.chomp
     input = input.downcase
-    ["y", "yes", "ja", "yaaas", "ndio", "da", "oui"].include? input
+    %w[y yes ja yaaas ndio da oui].include? input
   end
 
   def self.show_goodbye
-    puts %{
+    puts %(
             ,-.           . .           . .
            /              | |           | |
            | -. ,-. ,-. ,-| |-. . . ,-. | |
            \  | | | | | | | | | | | |-'
             `-' `-' `-' `-' `-' `-| `-' o o
                                 `-'
-}
+)
   end
 
   def self.show_invalid_input(input)
     puts "Input '#{input}' is invalid!"
   end
 
-  def self.show_error e
+  def self.show_error(e)
     puts "Error! => #{e.message}"
   end
 
@@ -77,16 +75,15 @@ Instructions:
     input.downcase
   end
 
-  def self.show_winner player
+  def self.show_winner(player)
     puts "Congratulations #{player}, you've won the game!"
   end
 
   def self.show_draw
-    puts "Equally matched contenders have met!"
+    puts 'Equally matched contenders have met!'
   end
 
-  def self.show message
+  def self.show(message)
     puts message
   end
-
 end
