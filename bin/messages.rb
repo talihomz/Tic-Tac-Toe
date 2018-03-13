@@ -6,7 +6,6 @@ class Messages
 ===========================================
    TIC TAC TOE : By Sava & Kevin
 ===========================================
-
 Welcome to Tic Tac Toe. Play if you dare 😈
     )
   end
@@ -26,15 +25,12 @@ Welcome to Tic Tac Toe. Play if you dare 😈
     puts %{
 #{game.players[:X].name} vs #{game.players[:O].name}
 ===========================================
-
 #{game.board}
-
 Instructions:
 1. Each player gets a turn at the game
   - The prompt will show who's turn it is (e.g. #{game.players[:X].name}'s Turn: )
 2. Enter the position you wish to mark (e.g A2)
 3. Press 'q' to quit the game any time.
-
 }
   end
 
