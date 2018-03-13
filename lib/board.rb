@@ -1,27 +1,25 @@
-require_relative "string_extension"
+require_relative 'string_extension'
 
 class Board
-
   attr_reader :slots
   attr_reader :winning_row
 
-  def initialize
-    @board_map = {
-      a: 0,
-      b: 3,
-      c: 6
-    }
-    @possible_wins = [
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 4, 8],
-      [2, 4, 6]
-    ]
-  end
+  BOARD_MAP = {
+    a: 0,
+    b: 3,
+    c: 6
+  }.freeze
+
+  POSSIBLE_WINS = [
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ].freeze
 
   def reset
     @slots = [0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -45,7 +43,7 @@ class Board
   end
 
   def to_s
-    return %{
+    %{
         A   B   C
       +---+---+---+
     1 | #{render_slot(0)} | #{render_slot(3)} | #{render_slot(6)} |
@@ -67,7 +65,7 @@ class Board
 
     if(!slot_taken?(slot))
       index = get_slot_index(slot)
-      @slots[index] = symbol == "X" ? 1 : 2
+      @slots[index] = symbol == 'X' ? 1 : 2
     else
       raise SlotTakenError.new
     end
@@ -79,12 +77,12 @@ class Board
   end
 
   def get_slot_index(slot)
-    @board_map[slot[0].to_sym] + slot[1].to_i - 1
+    BOARD_MAP[slot[0].to_sym] + slot[1].to_i - 1
   end
 
   def check_win
-    @winning_row = @possible_wins.find do |row|
-      @slots[row[0]] == @slots[row[1]] && @slots[row[0]] == @slots[row[2]] && @slots[row[0]] != 0
+    @winning_row = POSSIBLE_WINS.find do |row|
+      @slots[row[0]] == @slots[row[1]] and @slots[row[0]] == @slots[row[2]] and @slots[row[0]] != 0
     end
     @winning_row ? true : false
   end
