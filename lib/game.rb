@@ -8,6 +8,9 @@ class Game
   Player = Struct.new(:name, :marker)
 
   def initialize(board, players = {})
+    raise ArgumentError.new('Board cannot be nil') if board.nil?
+    raise TypeError.new('Expected instance of board as first argument') unless board.instance_of?(Board)
+
     @players = players
     @board = board
   end

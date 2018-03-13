@@ -5,6 +5,20 @@ describe Game do
   let(:board) { Board.new }
   let(:game) { Game.new(board) }
 
+  describe '#initialize' do 
+    context 'when no board' do
+      it 'raises ArgumentError' do 
+        expect { Game.new(nil) }.to raise_error(ArgumentError, 'Board cannot be nil')
+      end
+    end
+
+    context 'when not a board' do 
+      it 'raises TypeError' do 
+        expect { Game.new('board') }.to raise_error(TypeError, 'Expected instance of board as first argument')
+      end
+    end
+  end
+
   describe '#game_over?' do
     context 'when someone has won' do
       it 'returns true' do
