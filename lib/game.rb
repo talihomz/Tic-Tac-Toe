@@ -1,20 +1,19 @@
-require_relative "board.rb"
-require "pp"
+require_relative 'board.rb'
+require 'pp'
 
 class Game
-
   attr_reader :players
   attr_reader :board
 
   Player = Struct.new(:name, :marker)
 
-  def initialize(board, players={})
+  def initialize(board, players = {})
     @players = players
     @board = board
   end
 
   def reset
-    @current_player = "O"
+    @current_player = 'O'
     @board.reset
   end
 
@@ -24,7 +23,7 @@ class Game
 
   def is_draw?
     # game is a draw if all slots are played (not 0)
-    @board.slots.all? do |slot| slot != 0 end
+    @board.slots.all? { |slot| slot != 0 }
   end
 
   def current_player
@@ -32,7 +31,7 @@ class Game
   end
 
   def add_player(symbol, name)
-    raise ArgumentError.new("invalid symbol, expected 'X' or 'O'") if symbol.match(/[^XO]/i)
+    raise ArgumentError, "invalid symbol, expected 'X' or 'O'" if symbol =~ /[^XO]/i
     player = Player.new(name, symbol)
     @players[player.marker.to_sym] = player
   end
@@ -42,7 +41,7 @@ class Game
   end
 
   def switch_active_player
-    @current_player = @current_player == "O" ? "X" : "O"
+    @current_player = @current_player == 'O' ? 'X' : 'O'
   end
 
   def play_move(move)
