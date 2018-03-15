@@ -1,7 +1,6 @@
-require_relative "string_extension"
+require_relative 'string_extension'
 
 class Board
-
   attr_reader :slots
   attr_reader :winning_row
 
@@ -33,19 +32,19 @@ class Board
     render = ' '
 
     case value
-    when 1 then render = "X"
-    when 2 then render = "O"
+    when 1 then render = 'X'
+    when 2 then render = 'O'
     end
 
-    if @winning_row != nil
+    unless @winning_row.nil?
       render = @winning_row.include?(position) ? render.green.bold : render.red
     end
 
-    return render
+    render
   end
 
   def to_s
-    return %{
+    %(
         A   B   C
       +---+---+---+
     1 | #{render_slot(0)} | #{render_slot(3)} | #{render_slot(6)} |
@@ -55,21 +54,18 @@ class Board
     3 | #{render_slot(2)} | #{render_slot(5)} | #{render_slot(8)} |
       +---+---+---+
 
-}
+)
   end
 
   def fill_in_slot(slot, symbol)
-
     # handle invalid input
-    if slot.match(/^([abc]{1})([123]{1})$/) == nil
-      raise InvalidSlotError.new
-    end
+    raise InvalidSlotError if slot.match(/^([abc]{1})([123]{1})$/).nil?
 
-    if(!slot_taken?(slot))
+    if !slot_taken?(slot)
       index = get_slot_index(slot)
-      @slots[index] = symbol == "X" ? 1 : 2
+      @slots[index] = symbol == 'X' ? 1 : 2
     else
-      raise SlotTakenError.new
+      raise SlotTakenError
     end
   end
 
@@ -87,5 +83,4 @@ class Board
       @slots[row[0]] == @slots[row[1]] && @slots[row[0]] == @slots[row[2]] && @slots[row[0]] != 0
     end
   end
-
 end

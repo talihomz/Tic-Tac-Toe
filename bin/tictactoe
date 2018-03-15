@@ -1,26 +1,27 @@
 #!/usr/bin/env ruby
 
-require_relative "../lib/game.rb"
-require_relative "messages.rb"
+require_relative '../lib/game.rb'
+require_relative 'messages.rb'
 
 # setup
-game = Game.new
-option = "0"
+board = Board.new
+game = Game.new board
+option = '0'
 
 # show welcome screen to the user
 Messages.show_welcome
 
 # start game loop
-until option == "2"
+until option == '2'
 
   # prompt the user for option
   option = Messages.get_option_from_player
 
   # user decides to play by selecting option 1
-  if(option == "1")
+  if option == '1'
     game.reset
-    game.add_player("X", Messages.get_player_name("X"))
-    game.add_player("O", Messages.get_player_name("O"))
+    game.add_player('X', Messages.get_player_name('X'))
+    game.add_player('O', Messages.get_player_name('O'))
 
     # display game to user
     Messages.show_game(game)
@@ -30,7 +31,7 @@ until option == "2"
       begin
         player_input = Messages.get_player_input(game.current_player)
 
-        if player_input == "q"
+        if player_input == 'q'
           user_wants_to_exit = Messages.get_exit_confirmation
           if user_wants_to_exit
             break
@@ -40,15 +41,15 @@ until option == "2"
         end
 
         game.play_move(player_input)
+        Messages.show board
 
-        if(game.player_has_won?)
+        if game.player_has_won?
           Messages.show_winner(game.current_player)
         elsif game.is_draw?
           Messages.show_draw
         else
           game.switch_active_player
         end
-
       rescue InvalidSlotError => e
         Messages.show e
         retry
@@ -59,13 +60,13 @@ until option == "2"
     end
 
   # user decides to quit by selecting option 2
-  elsif(option == "2")
+  elsif option == '2'
     user_wants_to_quit = Messages.get_exit_confirmation
     if user_wants_to_quit
       Messages.show_goodbye
       break
     else
-      option = "0"
+      option = '0'
     end
   else
     Messages.show_invalid_input(option)
